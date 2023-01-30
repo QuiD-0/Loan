@@ -11,7 +11,7 @@ class Counsel(
     @Id
     @GeneratedValue(strategy = IDENTITY)
     val counselId: Long? = null,
-    val appliedAt: LocalDateTime = LocalDateTime.now(),
+    val appliedAt: LocalDateTime,
     val name: String,
     val phone: String,
     val email: String,
@@ -25,6 +25,7 @@ class Counsel(
     companion object {
         fun of(
             name: String,
+            appliedAt : LocalDateTime,
             phone: String,
             email: String,
             memo: String?,
@@ -32,6 +33,7 @@ class Counsel(
             zip: String
         ): Counsel {
             return Counsel(
+                appliedAt = appliedAt,
                 name = name,
                 phone = phone,
                 email = email,
