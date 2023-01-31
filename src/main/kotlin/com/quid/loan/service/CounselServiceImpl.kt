@@ -4,9 +4,11 @@ import com.quid.loan.domain.Counsel
 import com.quid.loan.dto.CounselRequest
 import com.quid.loan.repository.CounselRepository
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class CounselServiceImpl(private val counselRepository: CounselRepository) : CounselService {
+    @Transactional
     override fun createCounsel(counselRequest: CounselRequest): Counsel {
         return counselRepository.createCounsel(counselRequest.toEntity())
     }
