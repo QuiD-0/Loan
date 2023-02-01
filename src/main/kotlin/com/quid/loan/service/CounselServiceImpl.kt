@@ -10,24 +10,32 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 class CounselServiceImpl(private val counselRepository: CounselRepository) : CounselService {
     @Transactional
-    override fun createCounsel(counselRequest: CounselRequest): CounselResponse {
+    override
+    fun createCounsel(counselRequest: CounselRequest): CounselResponse {
         val counsel = counselRepository.createCounsel(counselRequest.toEntity())
         return CounselResponse.of(counsel)
     }
 
-    override fun getCounsel(counselId: Long): Counsel {
-        return counselRepository.getCounsel(counselId)
-    }
-    @Transactional
-    override fun updateCounselMemo(counselId: Long, memo: String): Counsel {
-        TODO("Not yet implemented")
-    }
-    @Transactional
-    override fun deleteCounsel(counselId: Long) {
-        TODO("Not yet implemented")
+    override
+    fun getCounsel(counselId: Long): Counsel {
+        return counselRepository.findById(counselId)
     }
 
-    override fun getCounsels(): List<Counsel> {
+    @Transactional
+    override
+    fun updateCounselMemo(counselId: Long, memo: String) {
+        val counsel = counselRepository.findById(counselId)
+        counsel.updateMemo(memo)
+    }
+
+    @Transactional
+    override
+    fun deleteCounsel(counselId: Long) {
+        counselRepository.deleteById(counselId)
+    }
+
+    override
+    fun getCounsels(): List<Counsel> {
         return counselRepository.getCounsels()
     }
 }

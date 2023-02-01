@@ -8,19 +8,21 @@ import javax.persistence.Id
 
 @Entity
 class Counsel(
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    val counselId: Long? = null,
+    @Id @GeneratedValue(strategy = IDENTITY) val counselId: Long? = null,
     val name: String,
     val phone: String,
     val email: String,
-    val memo: String? = null,
+    var memo: String? = null,
     val address: String,
     val zip: String,
     val createdAt: LocalDateTime = LocalDateTime.now(),
     var updatedAt: LocalDateTime = LocalDateTime.now(),
-    var isDeleted: Boolean = false
 ) {
+    fun updateMemo(memo: String) {
+        this.memo = memo
+        this.updatedAt = LocalDateTime.now()
+    }
+
     companion object {
         fun of(
             name: String,

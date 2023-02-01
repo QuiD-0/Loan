@@ -7,7 +7,7 @@ import com.quid.loan.dto.CounselResponse
 interface CounselService {
     fun createCounsel(counselRequest: CounselRequest): CounselResponse
     fun getCounsel(counselId: Long): Counsel
-    fun updateCounselMemo(counselId: Long, memo: String): Counsel
+    fun updateCounselMemo(counselId: Long, memo: String)
     fun deleteCounsel(counselId: Long)
     fun getCounsels(): List<Counsel>
 }

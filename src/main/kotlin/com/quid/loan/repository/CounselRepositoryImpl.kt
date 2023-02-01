@@ -10,12 +10,16 @@ class CounselRepositoryImpl(private val counselJpaRepository: CounselJpaReposito
         return counselJpaRepository.save(counsel)
     }
 
-    override fun getCounsel(counselId: Long): Counsel {
+    override fun findById(counselId: Long): Counsel {
         return counselJpaRepository.findByIdOrNull(counselId) ?: throw IllegalArgumentException("해당 상담이 존재하지 않습니다.")
     }
 
     override fun getCounsels(): List<Counsel> {
         return counselJpaRepository.findAll()
+    }
+
+    override fun deleteById(counselId: Long) {
+        return counselJpaRepository.deleteById(counselId)
     }
 
 }

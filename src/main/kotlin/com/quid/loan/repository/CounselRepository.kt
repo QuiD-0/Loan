@@ -4,6 +4,7 @@ import com.quid.loan.domain.Counsel
 
 interface CounselRepository {
     fun createCounsel(counsel: Counsel) : Counsel
-    fun getCounsel(counselId: Long): Counsel
+    fun findById(counselId: Long): Counsel
     fun getCounsels(): List<Counsel>
+    fun deleteById(counselId: Long)
 }
