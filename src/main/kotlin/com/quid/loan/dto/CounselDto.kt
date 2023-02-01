@@ -4,7 +4,7 @@ import com.quid.loan.domain.Counsel
 import java.time.LocalDateTime
 
 
-data class CounselRequest constructor(
+data class CounselRequest (
     val name: String,
     val phone: String,
     val email: String,
@@ -33,4 +33,19 @@ data class CounselResponse(
     val address: String,
     val zip: String,
     val appliedAt: LocalDateTime
-)
+) {
+    companion object {
+        fun of(counsel: Counsel): CounselResponse {
+            return CounselResponse(
+                counselId = counsel.counselId?: 0,
+                name = counsel.name,
+                phone = counsel.phone,
+                email = counsel.email,
+                memo = counsel.memo,
+                address = counsel.address,
+                zip = counsel.zip,
+                appliedAt = counsel.createdAt
+            )
+        }
+    }
+}
