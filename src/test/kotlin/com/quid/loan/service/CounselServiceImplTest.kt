@@ -4,6 +4,7 @@ import com.quid.loan.dto.CounselRequest
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.transaction.annotation.Transactional
 
 @SpringBootTest
 class CounselServiceImplTest {
@@ -12,6 +13,7 @@ class CounselServiceImplTest {
     private lateinit var counselService: CounselService
 
     @Test
+    @Transactional
     fun createTest() {
         val counselRequest = CounselRequest(
             name = "name",

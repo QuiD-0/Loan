@@ -16,18 +16,18 @@ class CounselServiceImpl(private val counselRepository: CounselRepository) : Cou
     }
 
     override fun getCounsel(counselId: Long): Counsel {
-        TODO("Not yet implemented")
+        return counselRepository.getCounsel(counselId)
     }
-
+    @Transactional
     override fun updateCounselMemo(counselId: Long, memo: String): Counsel {
         TODO("Not yet implemented")
     }
-
+    @Transactional
     override fun deleteCounsel(counselId: Long) {
         TODO("Not yet implemented")
     }
 
     override fun getCounsels(): List<Counsel> {
-        TODO("Not yet implemented")
+        return counselRepository.getCounsels()
     }
 }
