@@ -1,6 +1,7 @@
 package com.quid.loan.repository
 
 import com.quid.loan.domain.Counsel
+import com.quid.loan.utils.fail
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Repository
 
@@ -11,7 +12,7 @@ class CounselRepositoryImpl(private val counselJpaRepository: CounselJpaReposito
     }
 
     override fun findById(counselId: Long): Counsel {
-        return counselJpaRepository.findByIdOrNull(counselId) ?: throw IllegalArgumentException("해당 상담이 존재하지 않습니다.")
+        return counselJpaRepository.findByIdOrNull(counselId) ?: fail("해당 상담이 존재하지 않습니다.")
     }
 
     override fun getCounsels(): List<Counsel> {
