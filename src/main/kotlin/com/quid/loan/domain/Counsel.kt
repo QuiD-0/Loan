@@ -1,5 +1,6 @@
 package com.quid.loan.domain
 
+import com.quid.loan.dto.CounselRequest
 import org.hibernate.annotations.Where
 import java.time.LocalDateTime
 import javax.persistence.Entity
@@ -27,21 +28,14 @@ class Counsel(
     }
 
     companion object {
-        fun of(
-            name: String,
-            phone: String,
-            email: String,
-            memo: String?,
-            address: String,
-            zip: String
-        ): Counsel {
+        fun of(request: CounselRequest): Counsel {
             return Counsel(
-                name = name,
-                phone = phone,
-                email = email,
-                memo = memo,
-                address = address,
-                zip = zip
+                name = request.name,
+                phone = request.phone,
+                email = request.email,
+                memo = request.memo,
+                address = request.address,
+                zip = request.zip
             )
         }
     }

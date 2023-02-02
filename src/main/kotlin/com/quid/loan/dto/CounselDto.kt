@@ -11,18 +11,7 @@ data class CounselRequest (
     val memo: String? = null,
     val address: String,
     val zip: String,
-) {
-    fun toEntity(): Counsel {
-        return Counsel.of(
-            name = name,
-            phone = phone,
-            email = email,
-            memo = memo,
-            address = address,
-            zip = zip
-        )
-    }
-}
+)
 
 data class CounselResponse(
     val counselId: Long,

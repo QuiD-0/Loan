@@ -12,7 +12,7 @@ class CounselServiceImpl(private val counselRepository: CounselRepository) : Cou
     @Transactional
     override
     fun createCounsel(counselRequest: CounselRequest): CounselResponse {
-        val counsel = counselRepository.createCounsel(counselRequest.toEntity())
+        val counsel = counselRepository.createCounsel(Counsel.of(counselRequest))
         return CounselResponse.of(counsel)
     }
 
