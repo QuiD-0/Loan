@@ -11,7 +11,11 @@ data class CounselRequest (
     val memo: String? = null,
     val address: String,
     val zip: String,
-)
+){
+    init {
+        CounselCreateRequestValidator.validate(this)
+    }
+}
 
 data class CounselResponse(
     val counselId: Long,
