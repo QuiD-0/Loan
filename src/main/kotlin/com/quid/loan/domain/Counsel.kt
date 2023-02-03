@@ -2,15 +2,20 @@ package com.quid.loan.domain
 
 import com.quid.loan.dto.CounselRequest
 import org.hibernate.annotations.Where
+import org.springframework.data.annotation.CreatedDate
+import org.springframework.data.annotation.LastModifiedDate
+import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.time.LocalDateTime
 import javax.persistence.Entity
+import javax.persistence.EntityListeners
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType.IDENTITY
 import javax.persistence.Id
 
 @Entity
 @Where(clause = "deleted_at is null")
-class Counsel(
+@EntityListeners(AuditingEntityListener::class)
+class Counsel constructor(
     @Id @GeneratedValue(strategy = IDENTITY) val counselId: Long? = null,
     val name: String,
     val phone: String,
@@ -18,13 +23,14 @@ class Counsel(
     val address: String,
     val zip: String,
     var memo: String? = null,
-    val createdAt: LocalDateTime = LocalDateTime.now(),
-    var updatedAt: LocalDateTime = LocalDateTime.now(),
+    @CreatedDate
+    var createAt: LocalDateTime = LocalDateTime.MIN,
+    @LastModifiedDate
+    var updateAt: LocalDateTime = LocalDateTime.MIN,
     var deletedAt: LocalDateTime? = null
 ) {
     fun updateMemo(memo: String) {
         this.memo = memo
-        this.updatedAt = LocalDateTime.now()
     }
 
     companion object {
@@ -35,7 +41,7 @@ class Counsel(
                 email = request.email,
                 memo = request.memo,
                 address = request.address,
-                zip = request.zip
+                zip = request.zip,
             )
         }
     }

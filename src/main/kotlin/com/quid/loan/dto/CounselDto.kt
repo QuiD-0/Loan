@@ -37,7 +37,7 @@ data class CounselResponse(
                 memo = counsel.memo,
                 address = counsel.address,
                 zip = counsel.zip,
-                appliedAt = counsel.createdAt
+                appliedAt = counsel.createAt
             )
         }
     }
