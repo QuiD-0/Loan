@@ -5,6 +5,8 @@ import com.quid.loan.dto.CounselRequest
 import com.quid.loan.dto.CounselResponse
 import com.quid.loan.dto.CounselUpdateRequest
 import com.quid.loan.service.CounselService
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -12,8 +14,8 @@ import org.springframework.web.bind.annotation.*
 class CounselController(private val counselService: CounselService) {
 
     @GetMapping("/list")
-    fun getCounsels(): List<Counsel> {
-        return counselService.getCounsels()
+    fun getCounsels(pageable: Pageable): Page<Counsel> {
+        return counselService.getCounsels(pageable)
     }
 
     @GetMapping("/{id}")

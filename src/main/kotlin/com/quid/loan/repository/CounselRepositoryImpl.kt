@@ -2,6 +2,8 @@ package com.quid.loan.repository
 
 import com.quid.loan.domain.Counsel
 import com.quid.loan.utils.fail
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Repository
 
@@ -16,8 +18,8 @@ class CounselRepositoryImpl(private val counselJpaRepository: CounselJpaReposito
         return counselJpaRepository.findByIdOrNull(counselId) ?: fail("해당 상담이 존재하지 않습니다.")
     }
 
-    override fun getCounsels(): List<Counsel> {
-        return counselJpaRepository.findAll()
+    override fun getCounsels(pageable : Pageable): Page<Counsel> {
+        return counselJpaRepository.findAll(pageable)
     }
 
     override fun deleteById(counselId: Long) {
