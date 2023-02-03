@@ -4,6 +4,9 @@ import com.quid.loan.domain.Counsel
 import com.quid.loan.dto.CounselRequest
 import com.quid.loan.dto.CounselResponse
 import com.quid.loan.repository.CounselRepository
+import com.quid.loan.utils.StatusCode
+import com.quid.loan.utils.StatusCode.*
+import com.quid.loan.utils.fail
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
@@ -16,13 +19,16 @@ class CounselServiceImpl(private val counselRepository: CounselRepository) : Cou
     @Transactional
     override fun createCounsel(counselRequest: CounselRequest): CounselResponse {
         logger.info { "createCounsel: $counselRequest" }
+        counselDuplicateCheck(counselRequest.name)
         val counsel = counselRepository.createCounsel(Counsel.of(counselRequest))
         return CounselResponse.of(counsel)
     }
 
-    override fun getCounsel(counselId: Long): Counsel {
+    @Transactional(readOnly = true)
+    override fun getCounsel(counselId: Long): CounselResponse {
         logger.info { "getCounsel: $counselId" }
-        return counselRepository.findById(counselId)
+        val counsel = counselRepository.findById(counselId)
+        return CounselResponse.of(counsel)
     }
 
     @Transactional
@@ -37,8 +43,15 @@ class CounselServiceImpl(private val counselRepository: CounselRepository) : Cou
         counselRepository.deleteById(counselId)
     }
 
-    override fun getCounsels(pageable : Pageable): Page<Counsel> {
+    @Transactional(readOnly = true)
+    override fun getCounsels(pageable : Pageable): Page<CounselResponse> {
         logger.info { "getCounsels" }
-        return counselRepository.getCounsels(pageable)
+        return counselRepository.getCounsels(pageable).map(CounselResponse.Companion::of)
+    }
+
+    private fun counselDuplicateCheck(name: String) {
+        if (counselRepository.isExistCounsel(name)) {
+            fail(COUNSEL_DUPLICATE_ERROR)
+        }
     }
 }

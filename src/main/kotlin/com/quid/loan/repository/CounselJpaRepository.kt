@@ -11,4 +11,7 @@ interface CounselJpaRepository : JpaRepository<Counsel, Long> {
     @Query("update Counsel c set c.deletedAt = current_timestamp where c.counselId = :counselId")
     override fun deleteById(counselId: Long)
 
+    fun existsByName(name: String): Boolean
+
+
 }

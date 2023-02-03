@@ -1,8 +1,9 @@
 package com.quid.loan.dto
 
 import com.quid.loan.domain.Counsel
-import com.quid.loan.utils.ValidationPipe
+import com.quid.loan.utils.StatusCode.*
 import com.quid.loan.utils.Step
+import com.quid.loan.utils.ValidationPipe
 import com.quid.loan.utils.fail
 
 class CounselValidator {
@@ -14,30 +15,29 @@ class CounselValidator {
                 .execute(counsel)
         }
     }
-
 }
 
 class EmailCheck : Step<Counsel> {
     override fun process(input: Counsel): Counsel {
-        if (input.email.isBlank()) fail("이메일을 입력해주세요.")
+        if (input.email.isBlank()) fail(EMAIL_NEED_VALUE_ERROR)
         val regex = "^[a-zA-Z0-9]+@[a-zA-Z0-9]+\\.[a-zA-Z0-9]+$"
-        if (!input.email.matches(regex.toRegex())) fail("이메일 형식이 올바르지 않습니다.")
+        if (!input.email.matches(regex.toRegex())) fail(EMAIL_NOT_VALID_ERROR)
         return input
     }
 }
 
 class PhoneCheck : Step<Counsel> {
     override fun process(input: Counsel): Counsel {
-        if (input.phone.isBlank()) fail("전화 번호를 입력해주세요.")
+        if (input.phone.isBlank()) fail(PHONE_NEED_VALUE_ERROR)
         val regex = "^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$"
-        if (!input.phone.matches(regex.toRegex())) fail("전화 번호 형식이 올바르지 않습니다.")
+        if (!input.phone.matches(regex.toRegex())) fail(PHONE_NOT_VALID_ERROR)
         return input
     }
 }
 
 class NameCheck : Step<Counsel> {
     override fun process(input: Counsel): Counsel {
-        if (input.name.isBlank()) fail("이름을 입력해주세요.")
+        if (input.name.isBlank()) fail(NAME_NEED_VALUE_ERROR)
         return input
     }
 }

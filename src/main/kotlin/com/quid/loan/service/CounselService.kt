@@ -8,8 +8,8 @@ import org.springframework.data.domain.Pageable
 
 interface CounselService {
     fun createCounsel(counselRequest: CounselRequest): CounselResponse
-    fun getCounsel(counselId: Long): Counsel
+    fun getCounsel(counselId: Long): CounselResponse
     fun updateCounselMemo(counselId: Long, memo: String)
     fun deleteCounsel(counselId: Long)
-    fun getCounsels(pageable : Pageable): Page<Counsel>
+    fun getCounsels(pageable : Pageable): Page<CounselResponse>
 }

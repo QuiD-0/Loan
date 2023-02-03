@@ -1,6 +1,8 @@
 package com.quid.loan.repository
 
 import com.quid.loan.domain.Counsel
+import com.quid.loan.utils.StatusCode
+import com.quid.loan.utils.StatusCode.COUNSEL_NOT_FOUND_ERROR
 import com.quid.loan.utils.fail
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -15,7 +17,7 @@ class CounselRepositoryImpl(private val counselJpaRepository: CounselJpaReposito
     }
 
     override fun findById(counselId: Long): Counsel {
-        return counselJpaRepository.findByIdOrNull(counselId) ?: fail("해당 상담이 존재하지 않습니다.")
+        return counselJpaRepository.findByIdOrNull(counselId) ?: fail(COUNSEL_NOT_FOUND_ERROR)
     }
 
     override fun getCounsels(pageable : Pageable): Page<Counsel> {
@@ -28,7 +30,11 @@ class CounselRepositoryImpl(private val counselJpaRepository: CounselJpaReposito
 
     override fun updateMemo(counselId: Long, memo: String) {
         counselJpaRepository.findByIdOrNull(counselId)?.updateMemo(memo)
-            ?: fail("해당 상담이 존재하지 않습니다.")
+            ?: fail(COUNSEL_NOT_FOUND_ERROR)
+    }
+
+    override fun isExistCounsel(name: String): Boolean {
+        return counselJpaRepository.existsByName(name)
     }
 
 }

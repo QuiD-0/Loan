@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.*
 class CounselController(private val counselService: CounselService) {
 
     @GetMapping("/list")
-    fun getCounsels(pageable: Pageable): Page<Counsel> {
+    fun getCounsels(pageable: Pageable): Page<CounselResponse> {
         return counselService.getCounsels(pageable)
     }
 
     @GetMapping("/{id}")
-    fun getCounsel(@PathVariable id: Long): Counsel {
+    fun getCounsel(@PathVariable id: Long): CounselResponse {
         return counselService.getCounsel(id)
     }
 

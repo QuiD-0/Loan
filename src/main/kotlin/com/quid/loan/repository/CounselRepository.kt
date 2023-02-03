@@ -10,4 +10,5 @@ interface CounselRepository {
     fun getCounsels(pageable: Pageable): Page<Counsel>
     fun deleteById(counselId: Long)
     fun updateMemo(counselId: Long, memo: String)
+    fun isExistCounsel(name: String): Boolean
 }
