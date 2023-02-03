@@ -7,14 +7,18 @@ import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.time.LocalDateTime
-import javax.persistence.Entity
-import javax.persistence.EntityListeners
-import javax.persistence.GeneratedValue
+import javax.persistence.*
 import javax.persistence.GenerationType.IDENTITY
-import javax.persistence.Id
 
 @Entity
 @Where(clause = "deleted_at is null")
+@Table(
+    name = "counsel",
+    indexes = [
+        Index(name = "idx_counsel_name", columnList = "name"),
+        Index(name = "idx_counsel_phone", columnList = "phone"),
+    ]
+)
 @EntityListeners(AuditingEntityListener::class)
 class Counsel(
     @Id @GeneratedValue(strategy = IDENTITY)
