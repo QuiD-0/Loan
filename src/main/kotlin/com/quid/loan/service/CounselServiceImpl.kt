@@ -24,8 +24,7 @@ class CounselServiceImpl(private val counselRepository: CounselRepository) : Cou
     @Transactional
     override
     fun updateCounselMemo(counselId: Long, memo: String) {
-        val findById = counselRepository.findById(counselId)
-        findById.updateMemo(memo)
+        counselRepository.updateMemo(counselId, memo)
     }
 
     @Transactional

@@ -6,7 +6,8 @@ import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Repository
 
 @Repository
-class CounselRepositoryImpl(private val counselJpaRepository: CounselJpaRepository) : CounselRepository {
+class CounselRepositoryImpl(private val counselJpaRepository: CounselJpaRepository) :
+    CounselRepository {
     override fun createCounsel(counsel: Counsel): Counsel {
         return counselJpaRepository.save(counsel)
     }
@@ -21,6 +22,11 @@ class CounselRepositoryImpl(private val counselJpaRepository: CounselJpaReposito
 
     override fun deleteById(counselId: Long) {
         return counselJpaRepository.deleteById(counselId)
+    }
+
+    override fun updateMemo(counselId: Long, memo: String) {
+        counselJpaRepository.findByIdOrNull(counselId)?.updateMemo(memo)
+            ?: fail("해당 상담이 존재하지 않습니다.")
     }
 
 }

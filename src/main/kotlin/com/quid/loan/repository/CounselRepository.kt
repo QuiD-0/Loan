@@ -7,4 +7,5 @@ interface CounselRepository {
     fun findById(counselId: Long): Counsel
     fun getCounsels(): List<Counsel>
     fun deleteById(counselId: Long)
+    fun updateMemo(counselId: Long, memo: String)
 }
