@@ -1,6 +1,7 @@
 package com.quid.loan.domain
 
 import com.quid.loan.dto.CounselRequest
+import com.quid.loan.dto.CounselValidator
 import org.hibernate.annotations.Where
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate
@@ -24,15 +25,15 @@ class Counsel(
     val address: String,
     val zip: String,
     var memo: String? = null,
-) {
     @CreatedDate
-    var createAt: LocalDateTime = LocalDateTime.MIN
-    private set
+    var createAt: LocalDateTime = LocalDateTime.MIN,
     @LastModifiedDate
-    var updateAt: LocalDateTime = LocalDateTime.MIN
-    private set
-    var deletedAt: LocalDateTime? = null
-
+    var updateAt: LocalDateTime = LocalDateTime.MIN,
+    var deletedAt: LocalDateTime? = null,
+) {
+    init {
+        CounselValidator.validate(this)
+    }
 
     fun updateMemo(memo: String) {
         this.memo = memo
