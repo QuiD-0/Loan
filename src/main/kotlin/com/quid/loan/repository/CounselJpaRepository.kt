@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query
 interface CounselJpaRepository : JpaRepository<Counsel, Long> {
 
     @Modifying
-    @Query("update Counsel c set c.deletedAt = current_timestamp where c.counselId = :id")
-    override fun deleteById(id: Long)
+    @Query("update Counsel c set c.deletedAt = current_timestamp where c.counselId = :counselId")
+    override fun deleteById(counselId: Long)
+
 }

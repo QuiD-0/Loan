@@ -15,20 +15,25 @@ import javax.persistence.Id
 @Entity
 @Where(clause = "deleted_at is null")
 @EntityListeners(AuditingEntityListener::class)
-class Counsel constructor(
-    @Id @GeneratedValue(strategy = IDENTITY) val counselId: Long? = null,
+class Counsel(
+    @Id @GeneratedValue(strategy = IDENTITY)
+    val counselId: Long? = null,
     val name: String,
     val phone: String,
     val email: String,
     val address: String,
     val zip: String,
     var memo: String? = null,
-    @CreatedDate
-    var createAt: LocalDateTime = LocalDateTime.MIN,
-    @LastModifiedDate
-    var updateAt: LocalDateTime = LocalDateTime.MIN,
-    var deletedAt: LocalDateTime? = null
 ) {
+    @CreatedDate
+    var createAt: LocalDateTime = LocalDateTime.MIN
+    private set
+    @LastModifiedDate
+    var updateAt: LocalDateTime = LocalDateTime.MIN
+    private set
+    var deletedAt: LocalDateTime? = null
+
+
     fun updateMemo(memo: String) {
         this.memo = memo
     }
