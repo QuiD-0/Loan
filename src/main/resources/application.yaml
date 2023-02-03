@@ -2,19 +2,15 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
+    open-in-view: false
   datasource:
     url: jdbc:mysql://localhost:3308/loan
     username: local_user
     password: LOCAL_TEST
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-logging:
-  level:
-    org:
-      hibernate:
-        SQL: debug
-        type:
-          descriptor:
-            sql:
-              BasicBinder: trace
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: true
