@@ -7,5 +7,11 @@ enum class StatusCode (val message : String) {
     EMAIL_NEED_VALUE_ERROR("이메일을 입력해주세요."),
     PHONE_NEED_VALUE_ERROR("전화 번호를 입력해주세요."),
     PHONE_NOT_VALID_ERROR("전화 번호 형식이 올바르지 않습니다."),
-    NAME_NEED_VALUE_ERROR("이름을 입력해주세요.")
+    NAME_NEED_VALUE_ERROR("이름을 입력해주세요."),
+    NICKNAME_NEED_VALUE_ERROR("닉네임을 입력해주세요."),
+    NICKNAME_DUPLICATE_ERROR("이미 존재하는 닉네임입니다."),
+    NICKNAME_IS_TOO_LONG_ERROR("닉네임은 10자 이하로 입력해주세요."),
+    PASSWORD_NEED_VALUE_ERROR("비밀번호를 입력해주세요."),
+    PASSWORD_IS_TOO_SHORT_ERROR("비밀번호는 8자 이상으로 입력해주세요."),
+    PASSWORD_IS_TOO_LONG_ERROR("비밀번호는 20자 이하로 입력해주세요."),
 }
