@@ -4,6 +4,7 @@ import com.quid.loan.counsel.domain.Counsel
 import com.quid.loan.counsel.dto.CounselRequest
 import com.quid.loan.counsel.dto.CounselResponse
 import com.quid.loan.counsel.repository.CounselRepository
+import com.quid.loan.user.repository.UserRepository
 import com.quid.loan.utils.StatusCode
 import com.quid.loan.utils.fail
 import org.springframework.data.domain.Page
@@ -16,17 +17,21 @@ interface CounselService {
     fun getCounsel(counselId: Long): CounselResponse
     fun updateCounselMemo(counselId: Long, memo: String)
     fun deleteCounsel(counselId: Long)
-    fun getCounsels(pageable : Pageable): Page<CounselResponse>
+    fun getCounsels(pageable: Pageable): Page<CounselResponse>
 
     @Service
-    class CounselServiceImpl(private val counselRepository: CounselRepository) : CounselService {
+    class CounselServiceImpl(
+        private val counselRepository: CounselRepository,
+        private val userRepository: UserRepository,
+    ) : CounselService {
         private val logger = mu.KotlinLogging.logger {}
 
         @Transactional
         override fun createCounsel(counselRequest: CounselRequest): CounselResponse {
             logger.info { "createCounsel: $counselRequest" }
-            counselDuplicateCheck(counselRequest.name)
-            val counsel = counselRepository.createCounsel(Counsel.of(counselRequest))
+            val user = userRepository.findById(counselRequest.userId)
+            if(user.counsel != null) fail(StatusCode.COUNSEL_ALREADY_EXIST_ERROR)
+            val counsel = counselRepository.createCounsel(Counsel.of(counselRequest, user))
             return CounselResponse.of(counsel)
         }
 
@@ -50,15 +55,9 @@ interface CounselService {
         }
 
         @Transactional(readOnly = true)
-        override fun getCounsels(pageable : Pageable): Page<CounselResponse> {
+        override fun getCounsels(pageable: Pageable): Page<CounselResponse> {
             logger.info { "getCounsels" }
             return counselRepository.getCounsels(pageable).map(CounselResponse.Companion::of)
-        }
-
-        private fun counselDuplicateCheck(name: String) {
-            if (counselRepository.isExistCounsel(name)) {
-                fail(StatusCode.COUNSEL_DUPLICATE_ERROR)
-            }
         }
     }
 }

@@ -5,7 +5,7 @@ import java.time.LocalDateTime
 
 
 data class CounselRequest (
-    val name: String,
+    val userId: Long,
     val phone: String,
     val email: String,
     val memo: String? = null,
@@ -27,7 +27,7 @@ data class CounselResponse(
         fun of(counsel: Counsel): CounselResponse {
             return CounselResponse(
                 counselId = counsel.counselId?: 0,
-                name = counsel.name,
+                name = counsel.user.nickname,
                 phone = counsel.phone,
                 email = counsel.email,
                 memo = counsel.memo,

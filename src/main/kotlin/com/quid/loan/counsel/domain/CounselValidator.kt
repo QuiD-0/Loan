@@ -8,8 +8,7 @@ import com.quid.loan.utils.fail
 class CounselValidator {
     companion object {
         fun validate(counsel: Counsel) {
-            ValidationPipe(NameCheck())
-                .addPipe(PhoneCheck())
+            ValidationPipe(PhoneCheck())
                 .addPipe(EmailCheck())
                 .execute(counsel)
         }
@@ -30,13 +29,6 @@ class PhoneCheck : Step<Counsel> {
         if (input.phone.isBlank()) fail(PHONE_NEED_VALUE_ERROR)
         val regex = "^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$"
         if (!input.phone.matches(regex.toRegex())) fail(PHONE_NOT_VALID_ERROR)
-        return input
-    }
-}
-
-class NameCheck : Step<Counsel> {
-    override fun process(input: Counsel): Counsel {
-        if (input.name.isBlank()) fail(NAME_NEED_VALUE_ERROR)
         return input
     }
 }

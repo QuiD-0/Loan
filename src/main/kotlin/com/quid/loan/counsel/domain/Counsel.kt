@@ -1,6 +1,7 @@
 package com.quid.loan.counsel.domain
 
 import com.quid.loan.counsel.dto.CounselRequest
+import com.quid.loan.user.domain.User
 import org.hibernate.annotations.Where
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate
@@ -14,7 +15,6 @@ import javax.persistence.GenerationType.IDENTITY
 @Table(
     name = "counsel",
     indexes = [
-        Index(name = "idx_counsel_name", columnList = "name"),
         Index(name = "idx_counsel_phone", columnList = "phone"),
     ]
 )
@@ -22,7 +22,8 @@ import javax.persistence.GenerationType.IDENTITY
 class Counsel(
     @Id @GeneratedValue(strategy = IDENTITY)
     val counselId: Long? = null,
-    val name: String,
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "counsel")
+    val user: User,
     val phone: String,
     val email: String,
     val address: String,
@@ -43,9 +44,9 @@ class Counsel(
     }
 
     companion object {
-        fun of(request: CounselRequest): Counsel {
+        fun of(request: CounselRequest, user: User): Counsel {
             return Counsel(
-                name = request.name,
+                user = user,
                 phone = request.phone,
                 email = request.email,
                 memo = request.memo,
