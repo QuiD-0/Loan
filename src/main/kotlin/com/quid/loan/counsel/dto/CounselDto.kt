@@ -5,7 +5,7 @@ import java.time.LocalDateTime
 
 
 data class CounselRequest (
-    val userId: Long,
+    val userSeq: Long,
     val phone: String,
     val email: String,
     val memo: String? = null,

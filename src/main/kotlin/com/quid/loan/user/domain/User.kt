@@ -17,13 +17,13 @@ class User(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val userSeq: Long? = null,
     @Column(unique = true)
-    val userId: Long,
+    val userId: String,
     @Column(unique = true)
     var nickname: String,
     val email: String,
     val password: String,
-    @OneToOne(fetch = FetchType.LAZY)
-    val counsel: Counsel? = null,
+    @OneToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = true)
+    var counsel: Counsel? = null,
 ) {
     init {
         UserValidator.validate(this)

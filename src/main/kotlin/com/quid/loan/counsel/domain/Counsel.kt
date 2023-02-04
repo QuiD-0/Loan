@@ -2,7 +2,6 @@ package com.quid.loan.counsel.domain
 
 import com.quid.loan.counsel.dto.CounselRequest
 import com.quid.loan.user.domain.User
-import org.hibernate.annotations.Where
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
@@ -11,7 +10,6 @@ import javax.persistence.*
 import javax.persistence.GenerationType.IDENTITY
 
 @Entity
-@Where(clause = "deleted_at is null")
 @Table(
     name = "counsel",
     indexes = [
@@ -33,7 +31,6 @@ class Counsel(
     var createAt: LocalDateTime = LocalDateTime.MIN,
     @LastModifiedDate
     var updateAt: LocalDateTime = LocalDateTime.MIN,
-    var deletedAt: LocalDateTime? = null,
 ) {
     init {
         CounselValidator.validate(this)

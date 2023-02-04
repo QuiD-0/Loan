@@ -1,7 +1,7 @@
 package com.quid.loan.user.dto
 
 data class UserCreateRequest(
-    val userId: Long,
+    val userId: String,
     val email: String,
     val nickname: String = createRandomNickname(),
     val password: String,

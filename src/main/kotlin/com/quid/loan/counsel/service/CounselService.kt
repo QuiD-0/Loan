@@ -29,10 +29,10 @@ interface CounselService {
         @Transactional
         override fun createCounsel(counselRequest: CounselRequest): CounselResponse {
             logger.info { "createCounsel: $counselRequest" }
-            val user = userRepository.findById(counselRequest.userId)
+            val user = userRepository.findById(counselRequest.userSeq)
             if(user.counsel != null) fail(StatusCode.COUNSEL_ALREADY_EXIST_ERROR)
-            val counsel = counselRepository.createCounsel(Counsel.of(counselRequest, user))
-            return CounselResponse.of(counsel)
+            user.counsel = Counsel.of(counselRequest, user)
+            return CounselResponse.of(user.counsel!!)
         }
 
         @Transactional(readOnly = true)
@@ -51,7 +51,7 @@ interface CounselService {
         @Transactional
         override fun deleteCounsel(counselId: Long) {
             logger.info { "deleteCounsel: $counselId" }
-            counselRepository.deleteById(counselId)
+            counselRepository.findById(counselId).user.counsel = null
         }
 
         @Transactional(readOnly = true)

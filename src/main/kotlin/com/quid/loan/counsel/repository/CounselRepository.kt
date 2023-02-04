@@ -12,7 +12,6 @@ interface CounselRepository {
     fun createCounsel(counsel: Counsel): Counsel
     fun findById(counselId: Long): Counsel
     fun getCounsels(pageable: Pageable): Page<Counsel>
-    fun deleteById(counselId: Long)
     fun updateMemo(counselId: Long, memo: String)
 
 
@@ -29,10 +28,6 @@ interface CounselRepository {
 
         override fun getCounsels(pageable : Pageable): Page<Counsel> {
             return counselJpaRepository.findAll(pageable)
-        }
-
-        override fun deleteById(counselId: Long) {
-            return counselJpaRepository.deleteById(counselId)
         }
 
         override fun updateMemo(counselId: Long, memo: String) {
