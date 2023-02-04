@@ -1,10 +1,10 @@
-package com.quid.loan.controller
+package com.quid.loan.counsel.controller
 
-import com.quid.loan.domain.Counsel
-import com.quid.loan.dto.CounselRequest
-import com.quid.loan.dto.CounselResponse
-import com.quid.loan.dto.CounselUpdateRequest
-import com.quid.loan.service.CounselService
+import com.quid.loan.counsel.domain.Counsel
+import com.quid.loan.counsel.dto.CounselRequest
+import com.quid.loan.counsel.dto.CounselResponse
+import com.quid.loan.counsel.dto.CounselUpdateRequest
+import com.quid.loan.counsel.service.CounselService
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.web.bind.annotation.*

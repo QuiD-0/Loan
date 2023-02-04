@@ -1,6 +1,6 @@
-package com.quid.loan.dto
+package com.quid.loan.counsel.dto
 
-import com.quid.loan.domain.Counsel
+import com.quid.loan.counsel.domain.Counsel
 import java.time.LocalDateTime
 
 

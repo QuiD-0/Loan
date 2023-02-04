@@ -1,8 +1,8 @@
-package com.quid.loan.service
+package com.quid.loan.counsel.service
 
-import com.quid.loan.domain.Counsel
-import com.quid.loan.dto.CounselRequest
-import com.quid.loan.dto.CounselResponse
+import com.quid.loan.counsel.domain.Counsel
+import com.quid.loan.counsel.dto.CounselRequest
+import com.quid.loan.counsel.dto.CounselResponse
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 

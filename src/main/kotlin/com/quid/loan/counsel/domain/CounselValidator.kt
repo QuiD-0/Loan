@@ -1,6 +1,5 @@
-package com.quid.loan.dto
+package com.quid.loan.counsel.domain
 
-import com.quid.loan.domain.Counsel
 import com.quid.loan.utils.StatusCode.*
 import com.quid.loan.utils.Step
 import com.quid.loan.utils.ValidationPipe

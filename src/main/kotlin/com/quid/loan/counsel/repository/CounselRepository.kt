@@ -1,6 +1,6 @@
-package com.quid.loan.repository
+package com.quid.loan.counsel.repository
 
-import com.quid.loan.domain.Counsel
+import com.quid.loan.counsel.domain.Counsel
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 

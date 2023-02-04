@@ -1,7 +1,6 @@
-package com.quid.loan.domain
+package com.quid.loan.counsel.domain
 
-import com.quid.loan.dto.CounselRequest
-import com.quid.loan.dto.CounselValidator
+import com.quid.loan.counsel.dto.CounselRequest
 import org.hibernate.annotations.Where
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate

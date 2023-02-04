@@ -1,6 +1,6 @@
-package com.quid.loan.repository
+package com.quid.loan.counsel.repository
 
-import com.quid.loan.domain.Counsel
+import com.quid.loan.counsel.domain.Counsel
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Modifying
 import org.springframework.data.jpa.repository.Query

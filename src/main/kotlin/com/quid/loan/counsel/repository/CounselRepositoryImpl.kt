@@ -1,6 +1,6 @@
-package com.quid.loan.repository
+package com.quid.loan.counsel.repository
 
-import com.quid.loan.domain.Counsel
+import com.quid.loan.counsel.domain.Counsel
 import com.quid.loan.utils.StatusCode
 import com.quid.loan.utils.StatusCode.COUNSEL_NOT_FOUND_ERROR
 import com.quid.loan.utils.fail
