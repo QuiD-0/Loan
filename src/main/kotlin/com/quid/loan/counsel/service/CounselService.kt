@@ -31,7 +31,7 @@ interface CounselService {
             logger.info { "createCounsel: $counselRequest" }
             val user = userRepository.findById(counselRequest.userSeq)
             if(user.counsel != null) fail(StatusCode.COUNSEL_ALREADY_EXIST_ERROR)
-            user.counsel = Counsel.of(counselRequest, user)
+            user.counsel = counselRepository.save(Counsel.of(counselRequest, user))
             return CounselResponse.of(user.counsel!!)
         }
 

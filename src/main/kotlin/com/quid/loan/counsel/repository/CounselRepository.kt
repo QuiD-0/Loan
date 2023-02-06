@@ -13,6 +13,7 @@ interface CounselRepository {
     fun findById(counselId: Long): Counsel
     fun getCounsels(pageable: Pageable): Page<Counsel>
     fun updateMemo(counselId: Long, memo: String)
+    fun save(counsel: Counsel): Counsel
 
 
     @Repository
@@ -33,6 +34,10 @@ interface CounselRepository {
         override fun updateMemo(counselId: Long, memo: String) {
             counselJpaRepository.findByIdOrNull(counselId)?.updateMemo(memo)
                 ?: fail(StatusCode.COUNSEL_NOT_FOUND_ERROR)
+        }
+
+        override fun save(counsel: Counsel): Counsel {
+            return counselJpaRepository.save(counsel)
         }
     }
 }
