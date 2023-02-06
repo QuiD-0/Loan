@@ -1,6 +1,6 @@
 package com.quid.loan.user.user
 
-import com.quid.loan.counsel.domain.Counsel
+import com.quid.loan.counsel.dto.CounselResponse
 import com.quid.loan.user.dto.UserCreateRequest
 import com.quid.loan.user.dto.UserResponse
 import com.quid.loan.user.service.UserService
@@ -18,7 +18,7 @@ class UserController(
     }
 
     @GetMapping("/counsel/{id}")
-    fun getCounsel(@PathVariable id: Long): Counsel? {
+    fun getCounsel(@PathVariable id: Long): CounselResponse {
         return userService.getUserCounsel(id)
     }
 
