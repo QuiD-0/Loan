@@ -40,6 +40,6 @@ data class CounselResponse(
 }
 
 data class CounselUpdateRequest(
-    val counselId: Long,
+    val userSeq: Long,
     val memo: String
 )

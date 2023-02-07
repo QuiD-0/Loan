@@ -1,6 +1,8 @@
 package com.quid.loan.user.user
 
+import com.quid.loan.counsel.dto.CounselRequest
 import com.quid.loan.counsel.dto.CounselResponse
+import com.quid.loan.counsel.dto.CounselUpdateRequest
 import com.quid.loan.user.dto.UserCreateRequest
 import com.quid.loan.user.dto.UserResponse
 import com.quid.loan.user.service.UserService
@@ -20,6 +22,21 @@ class UserController(
     @GetMapping("/counsel/{id}")
     fun getCounsel(@PathVariable id: Long): CounselResponse {
         return userService.getUserCounsel(id)
+    }
+
+    @PutMapping("/counsel/memo")
+    fun updateCounselMemo(@RequestBody request: CounselUpdateRequest) {
+        userService.updateCounselMemo(request)
+    }
+
+    @DeleteMapping("/counsel/{id}")
+    fun deleteCounsel(@PathVariable id: Long) {
+        userService.deleteCounsel(id)
+    }
+
+    @PostMapping("/counsel")
+    fun createCounsel(@RequestBody request: CounselRequest): CounselResponse {
+        return userService.createCounsel(request)
     }
 
 }

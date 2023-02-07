@@ -1,6 +1,7 @@
 package com.quid.loan.user.domain
 
 import com.quid.loan.counsel.domain.Counsel
+import com.quid.loan.counsel.dto.CounselRequest
 import com.quid.loan.user.dto.UserCreateRequest
 import javax.persistence.*
 
@@ -25,6 +26,16 @@ class User(
     @OneToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = true)
     var counsel: Counsel? = null,
 ) {
+    fun deleteCounsel() {
+        counsel = null
+    }
+
+    fun createCounsel(request: CounselRequest): Counsel {
+        return Counsel.of(request, this).also {
+            counsel = it
+        }
+    }
+
     init {
         UserValidator.validate(this)
     }
