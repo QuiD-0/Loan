@@ -1,16 +1,7 @@
 spring:
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: false
-    open-in-view: false
-  datasource:
-    url: jdbc:mysql://localhost:3308/loan
-    username: local_user
-    password: LOCAL_TEST
-    driver-class-name: com.mysql.cj.jdbc.Driver
-
-decorator:
-  datasource:
-    p6spy:
-      enable-logging: true
+  application:
+    name: loan
+  profiles:
+    active: local
+  config:
+    import: optional:configserver:http://localhost:8888
