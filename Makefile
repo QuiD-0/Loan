@@ -16,7 +16,7 @@ build: ## build environment and initialize and project dependencies
 
 .PHONY: up
 up: ## spin up environment
-		$(DOCKER_COMPOSE) up -d --force-recreate
+		$(DOCKER_COMPOSE) up -d --force-recreate --remove-orphans
 
 .PHONY: stop
 stop: ## spin up environment
