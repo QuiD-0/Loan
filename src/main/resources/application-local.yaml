@@ -9,8 +9,26 @@ spring:
     username: local_user
     password: LOCAL_TEST
     driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      username: local_user
+      password: LOCAL_TEST
+      maximum-pool-size: 10
+      minimum-idle: 5
+      idle-timeout: 30000
+      max-lifetime: 1800000
+      connection-timeout: 30000
+  cloud:
+    refresh:
+      extra-refreshable: com.zaxxer.hikari.HikariDataSource
 
 decorator:
   datasource:
     p6spy:
       enable-logging: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude: "env,beans"
