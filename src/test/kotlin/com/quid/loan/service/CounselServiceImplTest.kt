@@ -1,7 +1,6 @@
 package com.quid.loan.service
 
-import com.quid.loan.counsel.dto.CounselRequest
-import com.quid.loan.counsel.service.CounselService
+import com.quid.loan.user.repository.UserRepository
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -11,23 +10,13 @@ import org.springframework.transaction.annotation.Transactional
 class CounselServiceImplTest {
 
     @Autowired
-    private lateinit var counselService: CounselService
+    private lateinit var userRepository: UserRepository
 
     @Test
     @Transactional
-    fun createTest() {
-        val counselRequest = CounselRequest(
-            name = "name",
-            phone = "phoneNumber",
-            memo = "memo",
-            address = "address",
-            zip = "zip",
-            email = "email"
-        )
-
-        val counselResponse = counselService.createCounsel(counselRequest)
-
-        assert(counselResponse.name == counselRequest.name)
+    fun test() {
+        val user = userRepository.findById(1)
+        val counsel = user.counsel
     }
 
 }

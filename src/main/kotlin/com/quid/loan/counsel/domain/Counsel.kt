@@ -18,8 +18,9 @@ import javax.persistence.GenerationType.IDENTITY
 )
 @EntityListeners(AuditingEntityListener::class)
 class Counsel(
-    @Id @GeneratedValue(strategy = IDENTITY)
-    val counselId: Long? = null,
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    val id: Long? = null,
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "counsel")
     val user: User,
     val phone: String,

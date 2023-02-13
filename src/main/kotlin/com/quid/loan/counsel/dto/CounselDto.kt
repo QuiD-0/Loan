@@ -26,7 +26,7 @@ data class CounselResponse(
     companion object {
         fun of(counsel: Counsel): CounselResponse {
             return CounselResponse(
-                counselId = counsel.counselId?: 0,
+                counselId = counsel.id?: 0,
                 name = counsel.user.nickname,
                 phone = counsel.phone,
                 email = counsel.email,
