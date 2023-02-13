@@ -2,11 +2,11 @@ package com.quid.loan.loan.domain
 
 import com.quid.loan.counsel.domain.Counsel
 import com.quid.loan.loan.domain.LoanStatus.WAITING
-import com.quid.loan.loan.dto.LoanRequest
+import com.quid.loan.loan.dto.LoanCreateRequest
 import com.quid.loan.user.domain.User
 import com.quid.loan.utils.StatusCode
 import com.quid.loan.utils.fail
-import java.time.LocalDateTime
+import java.time.LocalDate
 import javax.persistence.*
 
 @Entity
@@ -21,7 +21,7 @@ class Loan(
     val counsel: Counsel,
     val amount: Double,
     val rate: Double,
-    val expiredAt: LocalDateTime,
+    val expiredAt: LocalDate,
     var remain: Double = amount,
     @Enumerated(EnumType.STRING)
     var loanStatus: LoanStatus = WAITING,
@@ -36,7 +36,7 @@ class Loan(
     }
 
     companion object {
-        fun create(request: LoanRequest, user: User): Loan {
+        fun create(request: LoanCreateRequest, user: User): Loan {
             return Loan(
                 user = user,
                 counsel = user.counsel!!,

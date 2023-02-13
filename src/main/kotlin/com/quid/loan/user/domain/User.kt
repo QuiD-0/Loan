@@ -3,7 +3,7 @@ package com.quid.loan.user.domain
 import com.quid.loan.counsel.domain.Counsel
 import com.quid.loan.counsel.dto.CounselRequest
 import com.quid.loan.loan.domain.Loan
-import com.quid.loan.loan.dto.LoanRequest
+import com.quid.loan.loan.dto.LoanCreateRequest
 import com.quid.loan.user.dto.UserCreateRequest
 import javax.persistence.*
 
@@ -41,7 +41,7 @@ class User(
         }
     }
 
-    fun createLoan(request: LoanRequest): Loan {
+    fun createLoan(request: LoanCreateRequest): Loan {
         this.counsel?.complete()
         return Loan.create(request, this).also {
             loan = it

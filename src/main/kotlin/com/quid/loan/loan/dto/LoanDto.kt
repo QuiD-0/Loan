@@ -1,9 +1,11 @@
 package com.quid.loan.loan.dto
 
-import java.time.LocalDateTime
+import org.springframework.format.annotation.DateTimeFormat
+import java.time.LocalDate
 
-class LoanRequest(
+class LoanCreateRequest(
     val amount: Double,
     val rate: Double,
-    val expiredAt: LocalDateTime,
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    val expiredAt: LocalDate,
 )
