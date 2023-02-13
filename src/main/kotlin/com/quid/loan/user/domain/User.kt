@@ -2,6 +2,7 @@ package com.quid.loan.user.domain
 
 import com.quid.loan.counsel.domain.Counsel
 import com.quid.loan.counsel.dto.CounselRequest
+import com.quid.loan.loan.domain.Loan
 import com.quid.loan.user.dto.UserCreateRequest
 import javax.persistence.*
 
@@ -20,11 +21,13 @@ class User(
     @Column(unique = true)
     val userId: String,
     @Column(unique = true)
-    var nickname: String,
+    private var nickname: String,
     val email: String,
     val password: String,
     @OneToOne(fetch = FetchType.LAZY, cascade = [CascadeType.PERSIST])
-    var counsel: Counsel? = null,
+    private var counsel: Counsel? = null,
+    @OneToOne(fetch = FetchType.LAZY, cascade = [CascadeType.PERSIST])
+    private var loan: Loan? = null,
 ) {
     fun deleteCounsel() {
         counsel = null
