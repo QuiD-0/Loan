@@ -26,9 +26,9 @@ class Counsel(
     val email: String,
     val address: String,
     val zip: String,
-    private var memo: String? = null,
+    var memo: String? = null,
     @Enumerated(EnumType.STRING)
-    private var status: CounselStatus = CounselStatus.WAITING,
+    var status: CounselStatus = CounselStatus.WAITING,
     @CreatedDate
     var createAt: LocalDateTime = LocalDateTime.MIN,
     @LastModifiedDate
@@ -43,7 +43,7 @@ class Counsel(
     }
 
     companion object {
-        fun of(request: CounselRequest, user: User): Counsel {
+        fun create(request: CounselRequest, user: User): Counsel {
             return Counsel(
                 user = user,
                 phone = request.phone,
@@ -61,5 +61,9 @@ class Counsel(
 
     fun complete() {
         status = CounselStatus.COMPLETE
+    }
+
+    fun delete() {
+        status = CounselStatus.DELETED
     }
 }

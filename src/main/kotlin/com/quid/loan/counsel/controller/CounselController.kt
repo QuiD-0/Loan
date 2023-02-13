@@ -25,17 +25,17 @@ class CounselController(private val counselService: CounselService,
         return counselService.getCounsel(id)
     }
 
-    @PutMapping("/counsel/memo")
+    @PutMapping("/memo")
     fun updateCounselMemo(@RequestBody request: CounselUpdateRequest) {
         userService.updateCounselMemo(request)
     }
 
-    @DeleteMapping("/counsel/{id}")
-    fun deleteCounsel(@PathVariable id: Long) {
-        userService.deleteCounsel(id)
+    @DeleteMapping("/{userSeq}")
+    fun deleteCounsel(@PathVariable userSeq: Long) {
+        userService.deleteCounsel(userSeq)
     }
 
-    @PostMapping("/counsel")
+    @PostMapping
     fun createCounsel(@RequestBody request: CounselRequest): CounselResponse {
         return userService.createCounsel(request)
     }
