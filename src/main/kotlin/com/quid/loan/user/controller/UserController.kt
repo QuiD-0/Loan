@@ -1,4 +1,4 @@
-package com.quid.loan.user.user
+package com.quid.loan.user.controller
 
 import com.quid.loan.counsel.dto.CounselRequest
 import com.quid.loan.counsel.dto.CounselResponse
