@@ -13,4 +13,8 @@ enum class StatusCode (val message : String) {
     PASSWORD_IS_TOO_LONG_ERROR("비밀번호는 20자 이하로 입력해주세요."),
     USER_NOT_FOUND_ERROR("회원이 존재하지 않습니다."),
     COUNSEL_ALREADY_EXIST_ERROR("이미 존재하는 상담입니다."),
+    PAY_AMOUNT_IS_TOO_BIG_ERROR("상환 금액이 대출 금액보다 큽니다."),
+    LOAN_AMOUNT_IS_TOO_BIG_ERROR("대출 금액이 너무 큽니다."),
+    LOAN_RATE_IS_TOO_BIG_ERROR("대출 금리가 너무 큽니다."),
+    COUNSEL_IS_NOT_COMPLETE_ERROR("상담이 완료되지 않았습니다."),
 }

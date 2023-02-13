@@ -3,6 +3,8 @@ package com.quid.loan.loan.domain
 import com.quid.loan.counsel.domain.Counsel
 import com.quid.loan.loan.dto.LoanRequest
 import com.quid.loan.user.domain.User
+import com.quid.loan.utils.StatusCode
+import com.quid.loan.utils.fail
 import java.time.LocalDateTime
 import javax.persistence.*
 
@@ -21,7 +23,12 @@ class Loan(
     val expiredAt: LocalDateTime,
     var remain: Double = amount,
 ) {
+    init {
+        LoanValidator.validate(this)
+    }
+
     fun pay(amount: Double) {
+        if (remain < amount) fail(StatusCode.PAY_AMOUNT_IS_TOO_BIG_ERROR)
         remain -= amount
     }
 
