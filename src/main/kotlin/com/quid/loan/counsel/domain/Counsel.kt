@@ -27,6 +27,7 @@ class Counsel(
     val address: String,
     val zip: String,
     var memo: String? = null,
+    @Enumerated(EnumType.STRING)
     var status: CounselStatus = CounselStatus.WAITING,
     @CreatedDate
     var createAt: LocalDateTime = LocalDateTime.MIN,
