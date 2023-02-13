@@ -23,7 +23,7 @@ class User(
     var nickname: String,
     val email: String,
     val password: String,
-    @OneToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = true)
+    @OneToOne(fetch = FetchType.LAZY, cascade = [CascadeType.PERSIST])
     var counsel: Counsel? = null,
 ) {
     fun deleteCounsel() {

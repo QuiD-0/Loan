@@ -27,6 +27,7 @@ class Counsel(
     val address: String,
     val zip: String,
     var memo: String? = null,
+    var status: CounselStatus = CounselStatus.WAITING,
     @CreatedDate
     var createAt: LocalDateTime = LocalDateTime.MIN,
     @LastModifiedDate
@@ -51,5 +52,13 @@ class Counsel(
                 zip = request.zip,
             )
         }
+    }
+
+    fun process() {
+        status = CounselStatus.PROCESSING
+    }
+
+    fun complete() {
+        status = CounselStatus.COMPLETE
     }
 }
