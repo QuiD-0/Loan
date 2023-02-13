@@ -25,9 +25,9 @@ class User(
     val email: String,
     val password: String,
     @OneToOne(fetch = FetchType.LAZY, cascade = [CascadeType.PERSIST])
-    private var counsel: Counsel? = null,
+    var counsel: Counsel? = null,
     @OneToOne(fetch = FetchType.LAZY, cascade = [CascadeType.PERSIST])
-    private var loan: Loan? = null,
+    var loan: Loan? = null,
 ) {
     fun deleteCounsel() {
         counsel = null
