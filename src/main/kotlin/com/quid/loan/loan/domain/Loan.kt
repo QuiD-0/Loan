@@ -1,6 +1,7 @@
 package com.quid.loan.loan.domain
 
 import com.quid.loan.counsel.domain.Counsel
+import com.quid.loan.loan.domain.LoanStatus.WAITING
 import com.quid.loan.loan.dto.LoanRequest
 import com.quid.loan.user.domain.User
 import com.quid.loan.utils.StatusCode
@@ -22,6 +23,8 @@ class Loan(
     val rate: Double,
     val expiredAt: LocalDateTime,
     var remain: Double = amount,
+    @Enumerated(EnumType.STRING)
+    var loanStatus: LoanStatus = WAITING,
 ) {
     init {
         LoanValidator.validate(this)
