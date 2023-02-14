@@ -22,7 +22,7 @@ class UserController(
         return userService.getUserCounsel(id)
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/allow/{id}")
     fun allowCounsel(@PathVariable id: Long) {
         return userService.allowCounsel(id)
     }

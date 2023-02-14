@@ -53,7 +53,7 @@ class User(
 
     private fun isNotAllowed(): Boolean{
         this.counsel?.let {
-            return it.status == CounselStatus.ALLOWED
+            return it.status != CounselStatus.ALLOWED
         } ?: fail(StatusCode.COUNSEL_NOT_FOUND_ERROR)
     }
 
