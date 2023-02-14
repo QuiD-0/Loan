@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/counsel")
-class CounselController(private val counselService: CounselService,
-    private val userService: UserService)
+class CounselController(private val counselService: CounselService)
 {
 
     @GetMapping("/list")
@@ -27,17 +26,17 @@ class CounselController(private val counselService: CounselService,
 
     @PutMapping("/memo")
     fun updateCounselMemo(@RequestBody request: CounselUpdateRequest) {
-        userService.updateCounselMemo(request)
+        counselService.updateCounselMemo(request)
     }
 
-    @DeleteMapping("/{userSeq}")
-    fun deleteCounsel(@PathVariable userSeq: Long) {
-        userService.deleteCounsel(userSeq)
+    @DeleteMapping("/{id}")
+    fun deleteCounsel(@PathVariable id: Long) {
+        counselService.deleteCounsel(id)
     }
 
     @PostMapping
     fun createCounsel(@RequestBody request: CounselRequest): CounselResponse {
-        return userService.createCounsel(request)
+        return counselService.createCounsel(request)
     }
 
 }
