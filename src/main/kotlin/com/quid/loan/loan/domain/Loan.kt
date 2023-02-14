@@ -15,9 +15,9 @@ class Loan(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
-    @OneToOne(mappedBy = "loan")
+    @OneToOne(mappedBy = "loan", fetch = FetchType.LAZY)
     val user: User,
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     val counsel: Counsel,
     val amount: Double,
     val rate: Double,
@@ -42,7 +42,7 @@ class Loan(
     }
 
     fun calculateInterest() {
-        this.remain += amount * rate
+        this.remain += remain * rate
     }
 
     companion object {
