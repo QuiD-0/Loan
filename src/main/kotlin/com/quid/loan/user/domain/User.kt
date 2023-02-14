@@ -57,6 +57,10 @@ class User(
         } ?: fail(StatusCode.COUNSEL_NOT_FOUND_ERROR)
     }
 
+    fun allowCounsel() {
+        counsel?.allow() ?: fail(StatusCode.COUNSEL_NOT_FOUND_ERROR)
+    }
+
     init {
         UserValidator.validate(this)
     }

@@ -14,6 +14,7 @@ interface UserService {
 
     fun createUser(request: UserCreateRequest): UserResponse
     fun getUserCounsel(id: Long): CounselResponse
+    fun allowCounsel(id: Long)
 
     @Service
     class UserServiceImpl(private val userRepository: UserRepository) : UserService {
@@ -31,6 +32,11 @@ interface UserService {
         override fun getUserCounsel(id: Long): CounselResponse {
             return userRepository.findById(id).counsel?.let { CounselResponse.of(it) }
                 ?: fail(COUNSEL_NOT_FOUND_ERROR)
+        }
+
+        @Transactional
+        override fun allowCounsel(id: Long) {
+            userRepository.findById(id).allowCounsel()
         }
     }
 }
