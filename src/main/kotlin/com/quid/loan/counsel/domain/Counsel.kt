@@ -71,4 +71,8 @@ class Counsel(
     fun delete() {
         status = CounselStatus.DELETED
     }
+
+    fun isAllowed(): Boolean {
+        return status == CounselStatus.ALLOWED
+    }
 }

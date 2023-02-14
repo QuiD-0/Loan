@@ -1,6 +1,5 @@
 package com.quid.loan.loan.domain
 
-import com.quid.loan.counsel.domain.CounselStatus
 import com.quid.loan.utils.StatusCode
 import com.quid.loan.utils.Step
 import com.quid.loan.utils.ValidationPipe
@@ -19,7 +18,7 @@ class LoanValidator {
 
 class CounselStatusCheck : Step<Loan> {
     override fun process(input: Loan): Loan {
-        if (input.counsel.status != CounselStatus.COMPLETE) fail(StatusCode.COUNSEL_IS_NOT_COMPLETE_ERROR)
+        if (!input.counsel.isAllowed()) fail(StatusCode.COUNSEL_IS_NOT_COMPLETE_ERROR)
         return input
     }
 }

@@ -24,7 +24,7 @@ class Loan(
     val expiredAt: LocalDate,
     var remain: Double = amount,
     @Enumerated(EnumType.STRING)
-    var loanStatus: LoanStatus = WAITING,
+    private var loanStatus: LoanStatus = WAITING,
 ) {
     init {
         LoanValidator.validate(this)
@@ -33,6 +33,7 @@ class Loan(
     fun pay(amount: Double) {
         if (remain < amount) fail(StatusCode.PAY_AMOUNT_IS_TOO_BIG_ERROR)
         remain -= amount
+        if (remain == 0.0) loanStatus = LoanStatus.COMPLETE
     }
 
     companion object {

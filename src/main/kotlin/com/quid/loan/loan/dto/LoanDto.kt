@@ -9,3 +9,8 @@ class LoanCreateRequest(
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     val expiredAt: LocalDate,
 )
+
+class PayRequest(
+    val userSeq: Long,
+    val amount: Double,
+)
