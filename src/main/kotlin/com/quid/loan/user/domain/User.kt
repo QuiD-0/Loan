@@ -1,10 +1,13 @@
 package com.quid.loan.user.domain
 
 import com.quid.loan.counsel.domain.Counsel
+import com.quid.loan.counsel.domain.CounselStatus
 import com.quid.loan.counsel.dto.CounselRequest
 import com.quid.loan.loan.domain.Loan
 import com.quid.loan.loan.dto.LoanCreateRequest
 import com.quid.loan.user.dto.UserCreateRequest
+import com.quid.loan.utils.StatusCode
+import com.quid.loan.utils.fail
 import javax.persistence.*
 
 @Entity
@@ -42,10 +45,16 @@ class User(
     }
 
     fun createLoan(request: LoanCreateRequest): Loan {
-        this.counsel?.complete()
+        if (isNotAllowed()) fail(StatusCode.COUNSEL_NOT_ALLOWED_ERROR)
         return Loan.create(request, this).also {
             loan = it
         }
+    }
+
+    private fun isNotAllowed(): Boolean{
+        this.counsel?.let {
+            return it.status == CounselStatus.ALLOWED
+        } ?: fail(StatusCode.COUNSEL_NOT_FOUND_ERROR)
     }
 
     init {

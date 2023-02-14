@@ -60,8 +60,12 @@ class Counsel(
         status = CounselStatus.PROCESSING
     }
 
-    fun complete() {
-        status = CounselStatus.COMPLETE
+    fun allow() {
+        status = CounselStatus.ALLOWED
+    }
+
+    fun deny() {
+        status = CounselStatus.DENIED
     }
 
     fun delete() {
