@@ -32,9 +32,7 @@ class Loan(
 
     fun pay(amount: Double) {
         if (remain < amount) fail(StatusCode.PAY_AMOUNT_IS_TOO_BIG_ERROR)
-        this.loanStatus = LoanStatus.PAYING
         remain -= amount
-        if (remain == 0.0) loanStatus = LoanStatus.COMPLETE
     }
 
     fun isPaying(): Boolean {
@@ -43,6 +41,14 @@ class Loan(
 
     fun calculateInterest() {
         this.remain += remain * rate
+    }
+
+    fun complete() {
+        loanStatus = LoanStatus.COMPLETE
+    }
+
+    fun changeStatus(status: LoanStatus) {
+        loanStatus = status
     }
 
     companion object {

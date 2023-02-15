@@ -1,5 +1,7 @@
 package com.quid.loan.loan.service
 
+import com.quid.loan.loan.domain.Loan
+import com.quid.loan.loan.domain.LoanStatus
 import com.quid.loan.loan.dto.LoanCreateRequest
 import com.quid.loan.loan.dto.PayRequest
 import com.quid.loan.user.repository.UserRepository
@@ -26,8 +28,15 @@ interface LoanService {
 
         @Transactional
         override fun pay(payRequest: PayRequest) {
-            userRepository.findById(payRequest.userSeq).loan?.pay(payRequest.amount)
+            val loan = userRepository.findById(payRequest.userSeq).loan
                 ?: fail(StatusCode.LOAN_NOT_FOUND_ERROR)
+            loan.pay(payRequest.amount)
+            changeLoanStatus(loan)
+        }
+
+        private fun changeLoanStatus(loan: Loan) {
+            if (loan.remain == 0.0) loan.complete()
+            else loan.changeStatus(LoanStatus.PAYING)
         }
     }
 }
