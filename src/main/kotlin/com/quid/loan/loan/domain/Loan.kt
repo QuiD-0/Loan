@@ -45,6 +45,7 @@ class Loan(
 
     fun complete() {
         loanStatus = LoanStatus.COMPLETE
+        user.completeLoan()
     }
 
     fun changeStatus(status: LoanStatus) {

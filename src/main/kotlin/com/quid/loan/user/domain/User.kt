@@ -61,6 +61,11 @@ class User(
         counsel?.allow() ?: fail(StatusCode.COUNSEL_NOT_FOUND_ERROR)
     }
 
+    fun completeLoan() {
+        loan = null
+        counsel = null
+    }
+
     init {
         UserValidator.validate(this)
     }
