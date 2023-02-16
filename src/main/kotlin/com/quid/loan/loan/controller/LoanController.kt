@@ -25,4 +25,9 @@ class LoanController(private val loanService: LoanService) {
         return loanService.getHistories()
     }
 
+    @GetMapping("/payedAmount")
+    fun getPayedAmount() : Map<String, String> {
+        return loanService.getPayedAmount()
+    }
+
 }

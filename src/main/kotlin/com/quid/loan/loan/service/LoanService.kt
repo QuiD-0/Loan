@@ -17,6 +17,7 @@ interface LoanService {
     fun createLoan(userSeq: Long, request: LoanCreateRequest)
     fun pay(payRequest: PayRequest)
     fun getHistories(): Map<String, List<LoanResponse>>
+    fun getPayedAmount(): Map<String, String>
 
     @Service
     class LoanServiceImp(
@@ -47,6 +48,11 @@ interface LoanService {
         @Transactional(readOnly = true)
         override fun getHistories(): Map<String, List<LoanResponse>> {
             return loanRepository.getHistories()
+        }
+
+        @Transactional(readOnly = true)
+        override fun getPayedAmount(): Map<String, String> {
+            return loanRepository.findPayedAmount()
         }
 
         private fun changeLoanStatus(loan: Loan) {
