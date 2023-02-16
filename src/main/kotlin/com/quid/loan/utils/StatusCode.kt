@@ -19,4 +19,5 @@ enum class StatusCode (val message : String) {
     COUNSEL_IS_NOT_COMPLETE_ERROR("상담이 완료되지 않았습니다."),
     COUNSEL_NOT_ALLOWED_ERROR("대출이 허용되지 않았습니다."),
     LOAN_NOT_FOUND_ERROR("대출이 존재하지 않습니다."),
+    LOAN_ALREADY_EXIST_ERROR("이미 대출이 존재합니다."),
 }

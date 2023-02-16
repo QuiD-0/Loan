@@ -14,7 +14,7 @@ interface LoanBatchService {
         @Transactional
         @Scheduled(cron = "0 0 0 1 * *")
         override fun calculateInterest() {
-            loanRepository.findAll().forEach {
+            loanRepository.findAllPayingLoan().forEach {
                 it.calculateInterest()
             }
         }

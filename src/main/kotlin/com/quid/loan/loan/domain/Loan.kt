@@ -17,6 +17,7 @@ class Loan(
     val id: Long? = null,
     @OneToOne(mappedBy = "loan", fetch = FetchType.LAZY)
     val user: User,
+    val name: String = user.nickname,
     @OneToOne(fetch = FetchType.LAZY)
     val counsel: Counsel,
     val amount: Double,
@@ -24,7 +25,7 @@ class Loan(
     val expiredAt: LocalDate,
     var remain: Double = amount,
     @Enumerated(EnumType.STRING)
-    private var loanStatus: LoanStatus = WAITING,
+    var loanStatus: LoanStatus = WAITING,
 ) {
     init {
         LoanValidator.validate(this)
