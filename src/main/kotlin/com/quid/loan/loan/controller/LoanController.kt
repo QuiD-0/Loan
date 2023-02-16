@@ -20,7 +20,7 @@ class LoanController(private val loanService: LoanService) {
         return loanService.pay(payRequest)
     }
 
-    @GetMapping("/histroies")
+    @GetMapping("/histories")
     fun getHistories() : Map<String, List<LoanResponse>> {
         return loanService.getHistories()
     }
