@@ -6,6 +6,7 @@ import com.quid.loan.loan.dto.LoanCreateRequest
 import com.quid.loan.loan.dto.LoanResponse
 import com.quid.loan.loan.dto.PayRequest
 import com.quid.loan.loan.repository.LoanRepository
+import com.quid.loan.user.domain.User
 import com.quid.loan.user.repository.UserRepository
 import com.quid.loan.utils.StatusCode
 import com.quid.loan.utils.fail
@@ -26,9 +27,13 @@ interface LoanService {
         @Transactional
         override fun createLoan(userSeq: Long, request: LoanCreateRequest) {
             val user = userRepository.findById(userSeq)
+            checkAvailableLoan(user)
+            user.createLoan(request)
+        }
+
+        private fun checkAvailableLoan(user: User) {
             if (user.counsel == null) fail(StatusCode.COUNSEL_NOT_FOUND_ERROR)
             if (user.loan != null) fail(StatusCode.LOAN_ALREADY_EXIST_ERROR)
-            user.createLoan(request)
         }
 
         @Transactional
@@ -39,6 +44,7 @@ interface LoanService {
             changeLoanStatus(loan)
         }
 
+        @Transactional(readOnly = true)
         override fun getHistories(): Map<String, List<LoanResponse>> {
             return loanRepository.getHistories()
         }
