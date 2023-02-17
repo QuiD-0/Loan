@@ -20,7 +20,7 @@ interface LoanRepository {
         }
 
         override fun findPayedAmount(): Map<String, String> {
-            return loanJpaRepository.findAll().map { it.name to it.amount }
+            return loanJpaRepository.findAll().map { it.user.nickname to it.amount }
                 .groupBy { it.first }
                 .mapValues { it.value.sumOf { it.second }.toString() + "원" }
         }

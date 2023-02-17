@@ -15,9 +15,8 @@ class Loan(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
-    @OneToOne(mappedBy = "loan", fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     val user: User,
-    val name: String = user.nickname,
     @OneToOne(fetch = FetchType.LAZY)
     val counsel: Counsel,
     val amount: Double,

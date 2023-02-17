@@ -28,7 +28,7 @@ class LoanResponse(
     companion object {
         fun of(loan: Loan): LoanResponse {
             return LoanResponse(
-                loan.name,
+                loan.user.nickname,
                 loan.amount,
                 loan.rate,
                 loan.expiredAt,

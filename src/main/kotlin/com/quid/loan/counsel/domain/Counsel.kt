@@ -21,7 +21,7 @@ class Counsel(
     @Id
     @GeneratedValue(strategy = IDENTITY)
     val id: Long? = null,
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "counsel")
+    @OneToOne(fetch = FetchType.LAZY)
     val user: User,
     val phone: String,
     val email: String,
