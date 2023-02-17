@@ -17,7 +17,7 @@ interface CounselService {
     fun getCounsels(pageable: Pageable): Page<CounselResponse>
     fun updateCounselMemo(request: CounselUpdateRequest)
     fun deleteCounsel(id: Long)
-    fun createCounsel(request: CounselRequest): CounselResponse
+    fun createCounsel(request: CounselRequest)
 
     @Service
     class CounselServiceImpl(
@@ -29,8 +29,8 @@ interface CounselService {
         @Transactional(readOnly = true)
         override fun getCounsel(counselId: Long): CounselResponse {
             logger.info { "getCounsel: $counselId" }
-            val counsel = counselRepository.findById(counselId)
-            return CounselResponse.of(counsel)
+            return counselRepository.findById(counselId)
+                .let { CounselResponse.of(it) }
         }
 
         @Transactional(readOnly = true)
@@ -41,23 +41,22 @@ interface CounselService {
 
         @Transactional
         override fun updateCounselMemo(request: CounselUpdateRequest) {
-            userRepository.findById(request.userSeq).counsel?.updateMemo(request.memo)
-                ?: fail(StatusCode.COUNSEL_NOT_FOUND_ERROR)
+            userRepository.findCounselByUserId(request.userSeq).updateMemo(request.memo)
         }
 
         @Transactional
         override fun deleteCounsel(id: Long) {
             val user = userRepository.findById(id)
-            user.counsel?.let { user.deleteCounsel() }
-                ?: fail(StatusCode.COUNSEL_NOT_FOUND_ERROR)
+            user.deleteCounsel()
         }
 
         @Transactional
-        override fun createCounsel(request: CounselRequest): CounselResponse {
+        override fun createCounsel(request: CounselRequest) {
             val user = userRepository.findById(request.userSeq)
-            if (user.counsel != null) fail(StatusCode.COUNSEL_ALREADY_EXIST_ERROR)
-            user.counsel = user.createCounsel(request)
-            return CounselResponse.of(user.counsel!!)
+            if(user.hasCounsel()){
+                fail(StatusCode.COUNSEL_ALREADY_EXIST_ERROR)
+            }
+            user.createCounsel(request)
         }
     }
 }

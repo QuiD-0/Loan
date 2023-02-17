@@ -39,8 +39,7 @@ interface LoanService {
 
         @Transactional
         override fun pay(payRequest: PayRequest) {
-            val loan = userRepository.findById(payRequest.userSeq).loan
-                ?: fail(StatusCode.LOAN_NOT_FOUND_ERROR)
+            val loan = userRepository.findLoanByUserId(payRequest.userSeq)
             loan.pay(payRequest.amount)
             changeLoanStatus(loan)
         }

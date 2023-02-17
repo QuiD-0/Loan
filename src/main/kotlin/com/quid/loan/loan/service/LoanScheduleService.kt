@@ -5,11 +5,11 @@ import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 
-interface LoanBatchService {
+interface LoanScheduleService {
     fun calculateInterest()
 
     @Component
-    class LoanBatchServiceImpl(private val loanRepository: LoanRepository) : LoanBatchService {
+    class LoanScheduleServiceImpl(private val loanRepository: LoanRepository) : LoanScheduleService {
 
         @Transactional
         @Scheduled(cron = "0 0 0 1 * *")

@@ -5,8 +5,6 @@ import com.quid.loan.user.domain.User
 import com.quid.loan.user.dto.UserCreateRequest
 import com.quid.loan.user.dto.UserResponse
 import com.quid.loan.user.repository.UserRepository
-import com.quid.loan.utils.StatusCode.COUNSEL_NOT_FOUND_ERROR
-import com.quid.loan.utils.fail
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -24,14 +22,14 @@ interface UserService {
         override fun createUser(request: UserCreateRequest): UserResponse {
             logger.info { "createUser: $request" }
             userRepository.checkNicknameDuplicate(request.nickname)
-            val createUser = userRepository.createUser(User.of(request))
-            return UserResponse.of(createUser)
+            return userRepository.createUser(User.of(request))
+                .let { UserResponse.of(it) }
         }
 
         @Transactional(readOnly = true)
         override fun getUserCounsel(id: Long): CounselResponse {
-            return userRepository.findById(id).counsel?.let { CounselResponse.of(it) }
-                ?: fail(COUNSEL_NOT_FOUND_ERROR)
+            return userRepository.findCounselByUserId(id)
+                .let { CounselResponse.of(it) }
         }
 
         @Transactional

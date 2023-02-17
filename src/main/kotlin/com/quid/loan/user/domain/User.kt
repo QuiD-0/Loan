@@ -35,23 +35,21 @@ class User(
 ) {
     fun deleteCounsel() {
         counsel?.delete()
-        counsel = null
+            .also { counsel = null }
     }
 
     fun createCounsel(request: CounselRequest): Counsel {
-        return Counsel.create(request, this).also {
-            counsel = it
-        }
+        return Counsel.create(request, this)
+            .also { counsel = it }
     }
 
     fun createLoan(request: LoanCreateRequest): Loan {
         if (isNotAllowed()) fail(StatusCode.COUNSEL_NOT_ALLOWED_ERROR)
-        return Loan.create(request, this).also {
-            loan = it
-        }
+        return Loan.create(request, this)
+            .also { loan = it }
     }
 
-    private fun isNotAllowed(): Boolean{
+    private fun isNotAllowed(): Boolean {
         this.counsel?.let {
             return it.status != CounselStatus.ALLOWED
         } ?: fail(StatusCode.COUNSEL_NOT_FOUND_ERROR)
@@ -64,6 +62,10 @@ class User(
     fun completeLoan() {
         loan = null
         counsel = null
+    }
+
+    fun hasCounsel(): Boolean {
+        return counsel != null
     }
 
     init {

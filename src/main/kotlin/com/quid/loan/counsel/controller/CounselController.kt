@@ -4,7 +4,6 @@ import com.quid.loan.counsel.dto.CounselRequest
 import com.quid.loan.counsel.dto.CounselResponse
 import com.quid.loan.counsel.dto.CounselUpdateRequest
 import com.quid.loan.counsel.service.CounselService
-import com.quid.loan.user.service.UserService
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.web.bind.annotation.*
@@ -35,8 +34,8 @@ class CounselController(private val counselService: CounselService)
     }
 
     @PostMapping
-    fun createCounsel(@RequestBody request: CounselRequest): CounselResponse {
-        return counselService.createCounsel(request)
+    fun createCounsel(@RequestBody request: CounselRequest) {
+        counselService.createCounsel(request)
     }
 
 }
