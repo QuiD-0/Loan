@@ -38,3 +38,27 @@ class LoanResponse(
         }
     }
 }
+
+class UnpaidLoanResponse(
+    val name: String,
+    val userId: String,
+    val amount: Double,
+    val rate: Double,
+    val expiredAt: LocalDate,
+    val remain: Double,
+    val loanStatus: LoanStatus,
+) {
+    companion object {
+        fun of(loan: Loan): UnpaidLoanResponse {
+            return UnpaidLoanResponse(
+                loan.user.nickname,
+                loan.user.userId,
+                loan.amount,
+                loan.rate,
+                loan.expiredAt,
+                loan.remain,
+                loan.loanStatus
+            )
+        }
+    }
+}

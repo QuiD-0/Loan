@@ -52,6 +52,10 @@ class Loan(
         loanStatus = status
     }
 
+    fun isNotComplete(): Boolean {
+        return loanStatus != LoanStatus.COMPLETE || loanStatus != LoanStatus.CANCEL
+    }
+
     companion object {
         fun create(request: LoanCreateRequest, user: User): Loan {
             return Loan(
