@@ -12,19 +12,14 @@ import javax.persistence.*
 @Entity
 @Table(name = "loan")
 class Loan(
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null,
-    @OneToOne(fetch = FetchType.LAZY)
-    val user: User,
-    @OneToOne(fetch = FetchType.LAZY)
-    val counsel: Counsel,
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) val id: Long? = null,
+    @OneToOne(fetch = FetchType.LAZY) val user: User,
+    @OneToOne(fetch = FetchType.LAZY) val counsel: Counsel,
     val amount: Double,
     val rate: Double,
     val expiredAt: LocalDate,
     var remain: Double = amount,
-    @Enumerated(EnumType.STRING)
-    var loanStatus: LoanStatus = WAITING,
+    @Enumerated(EnumType.STRING) var loanStatus: LoanStatus = WAITING,
 ) {
     init {
         LoanValidator.validate(this)
@@ -52,8 +47,8 @@ class Loan(
         loanStatus = status
     }
 
-    fun isNotComplete(): Boolean {
-        return loanStatus != LoanStatus.COMPLETE || loanStatus != LoanStatus.CANCEL
+    fun isWaiting(): Boolean {
+        return loanStatus == WAITING
     }
 
     companion object {

@@ -33,7 +33,8 @@ interface LoanRepository {
         }
 
         override fun findUnpaidLoans(): List<Loan> {
-            return loanJpaRepository.findByExpiredAtBefore(LocalDate.now()).filter { it.isNotComplete() }
+            return loanJpaRepository.findByExpiredAtBefore(LocalDate.now())
+                .filter { it.isPaying() || it.isWaiting() }
         }
     }
 }
