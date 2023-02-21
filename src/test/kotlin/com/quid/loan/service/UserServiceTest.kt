@@ -48,14 +48,15 @@ class ServiceDataInit {
             zip = "12345"
         )
 
-        val counselResponse = counselService.createCounsel(counselCreateRequest)
+        counselService.createCounsel(counselCreateRequest)
+        val counsel = counselService.getCounsel(1L)
 
-        assertEquals(counselResponse.name, "quid")
+        assertEquals(counsel.address, counselCreateRequest.address)
     }
 
     @Test
     fun createLoan() {
-        userService.allowCounsel(1 )
+        userService.allowCounsel(1)
 
         val loanCreateRequest = LoanCreateRequest(
             amount = 1000000.0,
@@ -63,6 +64,6 @@ class ServiceDataInit {
             expiredAt = LocalDate.now().plusDays(30)
         )
 
-        loanService.createLoan(1,loanCreateRequest)
+        loanService.createLoan(1, loanCreateRequest)
     }
 }
