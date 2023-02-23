@@ -51,16 +51,4 @@ class Loan(
     fun changeStatus(status: LoanStatus) {
         loanStatus = status
     }
-
-    companion object {
-        fun create(request: LoanCreateRequest, user: User): Loan {
-            return Loan(
-                user = user,
-                counsel = user.counsel!!,
-                amount = request.amount,
-                rate = request.rate,
-                expiredAt = request.expiredAt,
-            )
-        }
-    }
 }

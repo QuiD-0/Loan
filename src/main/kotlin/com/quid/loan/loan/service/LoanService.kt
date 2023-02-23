@@ -27,10 +27,9 @@ interface LoanService {
 
         @Transactional
         override fun createLoan(userSeq: Long, request: LoanCreateRequest) {
-            userRepository.findById(userSeq).also {
-                checkAvailableLoan(it)
-                it.createLoan(request)
-            }
+            val user = userRepository.findById(userSeq)
+            checkAvailableLoan(user)
+            request.toLoan(user).also { user.createLoan(it) }
         }
 
         private fun checkAvailableLoan(user: User) {

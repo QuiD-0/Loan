@@ -22,7 +22,7 @@ interface UserService {
         override fun createUser(request: UserCreateRequest): UserResponse {
             logger.info { "createUser: $request" }
             userRepository.checkNicknameDuplicate(request.nickname)
-            return userRepository.createUser(User.of(request))
+            return userRepository.createUser(request.toUser())
                 .let { UserResponse.of(it) }
         }
 

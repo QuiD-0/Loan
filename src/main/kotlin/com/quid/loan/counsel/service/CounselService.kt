@@ -56,7 +56,7 @@ interface CounselService {
             if(user.hasCounsel()){
                 fail(StatusCode.COUNSEL_ALREADY_EXIST_ERROR)
             }
-            user.createCounsel(request)
+            request.toCounsel(user).also { user.createCounsel(it) }
         }
     }
 }

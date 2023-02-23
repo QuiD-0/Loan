@@ -38,15 +38,13 @@ class User(
             .also { counsel = null }
     }
 
-    fun createCounsel(request: CounselRequest): Counsel {
-        return request.toCounsel(this)
-            .also { counsel = it }
+    fun createCounsel(counsel: Counsel): Counsel {
+        return counsel.also { this.counsel = it }
     }
 
-    fun createLoan(request: LoanCreateRequest): Loan {
+    fun createLoan(loan: Loan): Loan {
         if (isNotAllowed()) fail(StatusCode.COUNSEL_NOT_ALLOWED_ERROR)
-        return request.toLoan(this)
-            .also { loan = it }
+        return loan.also { this.loan = it }
     }
 
     private fun isNotAllowed(): Boolean {
@@ -70,16 +68,5 @@ class User(
 
     init {
         UserValidator.validate(this)
-    }
-
-    companion object {
-        fun of(request: UserCreateRequest): User {
-            return User(
-                userId = request.userId,
-                nickname = request.nickname,
-                email = request.email,
-                password = request.password,
-            )
-        }
     }
 }

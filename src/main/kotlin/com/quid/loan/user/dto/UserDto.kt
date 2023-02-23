@@ -7,7 +7,16 @@ data class UserCreateRequest(
     val email: String,
     val nickname: String = createRandomNickname(),
     val password: String,
-)
+){
+    fun toUser(): User {
+        return User(
+            userId = userId,
+            email = email,
+            nickname = nickname,
+            password = password,
+        )
+    }
+}
 
 fun createRandomNickname(): String {
     return "nickname" + (Math.random() * 100000).toInt()
