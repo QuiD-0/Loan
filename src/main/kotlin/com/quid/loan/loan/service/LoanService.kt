@@ -5,6 +5,7 @@ import com.quid.loan.loan.domain.LoanStatus
 import com.quid.loan.loan.dto.LoanCreateRequest
 import com.quid.loan.loan.dto.LoanResponse
 import com.quid.loan.loan.dto.PayRequest
+import com.quid.loan.loan.dto.UnpaidLoanResponse
 import com.quid.loan.loan.repository.LoanRepository
 import com.quid.loan.user.domain.User
 import com.quid.loan.user.repository.UserRepository
@@ -18,6 +19,8 @@ interface LoanService {
     fun pay(payRequest: PayRequest)
     fun getHistories(): Map<String, List<LoanResponse>>
     fun getPayedAmount(): Map<String, String>
+    fun getLoans(): List<LoanResponse>
+    fun getUnpaidLoans(): List<UnpaidLoanResponse>
 
     @Service
     class LoanServiceImp(
@@ -57,6 +60,14 @@ interface LoanService {
         private fun changeLoanStatus(loan: Loan) {
             if (loan.remain == 0.0) loan.complete()
             else loan.changeStatus(LoanStatus.PAYING)
+        }
+
+        override fun getLoans(): List<LoanResponse> {
+            return loanRepository.findAll().map { LoanResponse.of(it) }
+        }
+
+        override fun getUnpaidLoans(): List<UnpaidLoanResponse> {
+            return loanRepository.findUnpaidLoans().map { UnpaidLoanResponse.of(it) }
         }
     }
 }

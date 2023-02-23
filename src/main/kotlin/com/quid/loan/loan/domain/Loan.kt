@@ -51,4 +51,8 @@ class Loan(
     fun changeStatus(status: LoanStatus) {
         loanStatus = status
     }
+
+    fun isWaiting(): Boolean {
+        return loanStatus == WAITING
+    }
 }
