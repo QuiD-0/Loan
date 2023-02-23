@@ -43,19 +43,6 @@ class Counsel(
         this.memo = memo
     }
 
-    companion object {
-        fun create(request: CounselRequest, user: User): Counsel {
-            return Counsel(
-                user = user,
-                phone = request.phone,
-                email = request.email,
-                memo = request.memo,
-                address = request.address,
-                zip = request.zip,
-            )
-        }
-    }
-
     fun process() {
         status = CounselStatus.PROCESSING
     }

@@ -39,13 +39,13 @@ class User(
     }
 
     fun createCounsel(request: CounselRequest): Counsel {
-        return Counsel.create(request, this)
+        return request.toCounsel(this)
             .also { counsel = it }
     }
 
     fun createLoan(request: LoanCreateRequest): Loan {
         if (isNotAllowed()) fail(StatusCode.COUNSEL_NOT_ALLOWED_ERROR)
-        return Loan.create(request, this)
+        return request.toLoan(this)
             .also { loan = it }
     }
 

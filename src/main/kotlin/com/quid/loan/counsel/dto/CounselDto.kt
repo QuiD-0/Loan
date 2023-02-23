@@ -1,17 +1,29 @@
 package com.quid.loan.counsel.dto
 
 import com.quid.loan.counsel.domain.Counsel
+import com.quid.loan.user.domain.User
 import java.time.LocalDateTime
 
 
-data class CounselRequest (
+data class CounselRequest(
     val userSeq: Long,
     val phone: String,
     val email: String,
     val memo: String? = null,
     val address: String,
-    val zip: String,
-)
+    val zip: String
+) {
+    fun toCounsel(user: User): Counsel {
+        return Counsel(
+            user = user,
+            phone = phone,
+            email = email,
+            memo = memo,
+            address = address,
+            zip = zip,
+        )
+    }
+}
 
 data class CounselResponse(
     val counselId: Long,
@@ -26,7 +38,7 @@ data class CounselResponse(
     companion object {
         fun of(counsel: Counsel): CounselResponse {
             return CounselResponse(
-                counselId = counsel.id?: 0,
+                counselId = counsel.id ?: 0,
                 name = counsel.user.nickname,
                 phone = counsel.phone,
                 email = counsel.email,

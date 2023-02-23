@@ -2,6 +2,7 @@ package com.quid.loan.loan.dto
 
 import com.quid.loan.loan.domain.Loan
 import com.quid.loan.loan.domain.LoanStatus
+import com.quid.loan.user.domain.User
 import org.springframework.format.annotation.DateTimeFormat
 import java.time.LocalDate
 
@@ -10,7 +11,17 @@ class LoanCreateRequest(
     val rate: Double,
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     val expiredAt: LocalDate,
-)
+){
+    fun toLoan(user: User): Loan {
+        return Loan(
+            user = user,
+            counsel = user.counsel!!,
+            amount = amount,
+            rate = rate,
+            expiredAt = expiredAt,
+        )
+    }
+}
 
 class PayRequest(
     val userSeq: Long,
